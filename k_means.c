@@ -1,6 +1,6 @@
 #include <math.h>
 #include <limits.h>
-
+#include <stdio.h>
 /*Returns the square of the euclidean distance between two 2D points. Since the only thing that is important in K-Means clustering is relative disnce, i.e. is this point further from this center or this center, and not the actual distance we don't take the root of this number because calling sqrt() would be expensive.*/
 //TODO make this n-dimensional
 int distance(double p1[], double p2[]){
@@ -36,4 +36,18 @@ double k_means(int k, double** centers, double** dataset,  double*** clusters, i
 		}
 	}
 	return totalDistance;
+}
+
+int tester(float** centers){
+	int i,j;
+	printf("%f\n", centers[0][0]);
+	puts("{");
+	for(i=0;i<2; i++){
+		printf("{");
+		for(j=0; j<2; j++){
+			printf("%f,", centers[i][j]);
+		}
+		printf("},");
+	}
+	printf("\n");
 }
