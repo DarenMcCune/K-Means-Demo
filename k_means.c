@@ -7,7 +7,7 @@ double distance(double p1[], double p2[]){
 	return pow(p1[0]-p2[0],2) + pow(p1[1]-p2[1], 2);
 }
 
-double k_means(int k, double** centers, double** dataset,  __int8_t** clusters, int maxindex){
+double k_means(int k, double** centers, double** dataset,  __int8_t** clusters, double** new_centers, int maxindex){
 	double point[2], center[2], minDistance, minDistanceCenter, totalDistance, curDistance;
 	int pointIndex, centerIndex, minDistanceIndex, i;
 	for(pointIndex=0; pointIndex<maxindex; pointIndex++){
@@ -29,6 +29,7 @@ double k_means(int k, double** centers, double** dataset,  __int8_t** clusters, 
 		for(i=0; i<k; i++){
 			if(i==minDistanceIndex){
 				clusters[i][pointIndex]=1;
+				new_centers[i][0]
 			}
 			else{
 				clusters[i][pointIndex]=0;

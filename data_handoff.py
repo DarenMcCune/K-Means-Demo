@@ -36,4 +36,3 @@ def handoff(k):
 
     distance= cdll.k_means(ctypes.c_int(2), centers_pointer, dataset_pointer, clusters_pointer, ctypes.c_int(x.size)) 
     print distance, cdll.k_means.restype, clusters
-    
