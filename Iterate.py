@@ -1,5 +1,4 @@
 import numpy as np
-import random as r
 
 def iterate(centers, data):
     centers=centers[:,None] #Append an axis of length 1 so we can broadcast data and centers to a stacked array
@@ -13,7 +12,7 @@ def newCenters(data, labels, k):
     indices=[]
     for i in range(k):
         indices.append(np.where(labels==i))
-    return [np.mean(data[cluster], axis=0) for cluster in indices]
+    return np.array([np.mean(data[cluster], axis=0) for cluster in indices])
 
 def randCenters(data,k):
     centers=np.random.rand(k, data.shape[1])
@@ -22,15 +21,18 @@ def randCenters(data,k):
     for dim in range(data.shape[1]):
         centers[:, dim: dim+1]*=(maxes[dim]-mins[dim])
         centers[:, dim:dim+1]+=mins[dim]
-    return centers
+    return (centers)
 
 X = np.repeat([[5, 5], [10, 10]], [5, 5], axis=0)
-X = X + np.random.randn(*X.shape)
+#X = X + np.random.randn(*X.shape)
 #centroids = np.array([[5, 5], [10, 10]])
 centroids=randCenters(X, 2)
 print centroids
-labels= iterate(centroids, X)
 
-print newCenters(X, labels, 2)
+for i in range(1000):
+    labels=iterate(centroids, X)
+    centroids=newCenters(X, labels, 2)
+
+print centroids
 
 #print labels, newCenters(X, labels, 2), randCenters(X, 2)
