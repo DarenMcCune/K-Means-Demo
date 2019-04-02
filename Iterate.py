@@ -8,11 +8,20 @@ def iterate(centers, data):
     return np.argmin(distances, axis=0) #Return the min of each column, which will be the index of the closest center to
     #to the point in data at that column
 
-def newCenters(data, labels, k):
-    indices=[]
+def newCenters(data, clusters, k):
+    return np.array([np.mean(data[cluster], axis=0) for cluster in clusters])
+
+def findClusters(labels,k):
+    clusters=np.array(k)
     for i in range(k):
-        indices.append(np.where(labels==i))
-    return np.array([np.mean(data[cluster], axis=0) for cluster in indices])
+        clusters.append(np.where(labels==i))
+    return clusters
+
+def colorLabels(clusters, colors, datasize, k):
+    fsakjlk=np.array(datasize)
+    for i in range(k):
+        fsakjlk[clusters[i]]=colors[i]
+    return fsakjlk
 
 def randCenters(data,k):
     centers=np.random.rand(k, data.shape[1])
@@ -22,6 +31,19 @@ def randCenters(data,k):
         centers[:, dim: dim+1]*=(maxes[dim]-mins[dim])
         centers[:, dim:dim+1]+=mins[dim]
     return (centers)
+
+def genColors(k):
+    for i in range(k):
+        pass
+
+def K_Means(data, k, max_iterations=20, tolerance=0.5):
+    data_size=data.shape[0]
+    centroids=randCenters(data, k)
+    colors=genColors(k)
+    color_data=np.array(data_size)
+    for i in range(max_iterations):
+        labels = iterate(centroids, data)
+        centroids = newCenters(data, labels, 2)
 
 X = np.repeat([[5, 5], [10, 10]], [5, 5], axis=0)
 #X = X + np.random.randn(*X.shape)
